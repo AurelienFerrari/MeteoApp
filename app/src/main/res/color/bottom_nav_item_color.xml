@@ -1,0 +1,6 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Couleur du texte et du surlignage pour les éléments sélectionnés -->
+    <item android:color="@color/TextColor" android:state_checked="true" />
+    <!-- Couleur du texte et du surlignage pour les éléments non sélectionnés -->
+    <item android:color="@color/Black" />
+</selector>

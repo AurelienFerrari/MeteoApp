@@ -27,7 +27,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/address"
+                android:id="@+id/tvCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Valence, FR"
@@ -35,7 +35,7 @@
                 android:textSize="24dp" />
 
             <TextView
-                android:id="@+id/updated_at"
+                android:id="@+id/tvCurrentTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFFFF"
@@ -52,7 +52,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/status"
+                android:id="@+id/tvWeatherDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -90,14 +90,13 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/temp"
+                        android:id="@+id/tvTemperature"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:fontFamily="sans-serif-thin"
                         android:text="29°C"
                         android:textColor="@color/TextColor"
-                        android:textSize="45sp" />
+                        android:textSize="35sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -261,15 +260,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="#D1C4E9"
-            app:itemIconTint="@color/Black"
-            app:itemTextColor="@color/Black"
+            app:itemHorizontalTranslationEnabled="true"
+            app:itemIconTint="@color/TextColor"
+            app:itemTextColor="@color/TextColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:menu="@menu/bottom_nav"
-
             tools:ignore="MissingConstraints">
-
         </com.google.android.material.bottomnavigation.BottomNavigationView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
