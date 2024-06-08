@@ -67,10 +67,10 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/soleil"
+                    android:id="@+id/ivWeatherImage"
                     android:layout_width="164dp"
                     android:layout_height="180dp"
-                    android:src="@drawable/soleil"
+                    android:src="@drawable/default_image"
                     tools:ignore="DuplicateIds" />
 
                 <View
@@ -112,7 +112,7 @@
                             android:src="@drawable/vent" />
 
                         <TextView
-                            android:id="@+id/windSpeed"
+                            android:id="@+id/tvWindSpeed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
@@ -126,7 +126,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="48sp"
+                android:layout_marginTop="32sp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -234,6 +234,23 @@
 
 
             </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/etCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16sp"
+                android:hint="Ville à chercher" />
+
+            <Button
+                android:id="@+id/btnFetchWeather"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8sp"
+                android:layout_marginBottom="8sp"
+                android:layout_height="wrap_content"
+                android:text="Valider" />
 
         </LinearLayout>
 

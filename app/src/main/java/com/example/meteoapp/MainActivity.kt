@@ -4,7 +4,11 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.ImageView
+
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -24,9 +28,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvCity: TextView
     private lateinit var tvWeatherDescription: TextView
     private lateinit var tvTemperature: TextView
+    private lateinit var etCity: EditText
+    private lateinit var btnFetchWeather: Button
     private lateinit var timeUpdater: TimeUpdater
     private lateinit var locationProvider: LocationProvider
     private lateinit var weatherInfoProvider: WeatherInfoProvider
+    private lateinit var tvWindSpeed: TextView
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,13 +44,16 @@ class MainActivity : AppCompatActivity() {
         tvCity = findViewById(R.id.tvCity)
         tvWeatherDescription = findViewById(R.id.tvWeatherDescription)
         tvTemperature = findViewById(R.id.tvTemperature)
+        etCity = findViewById(R.id.etCity)
+        btnFetchWeather = findViewById(R.id.btnFetchWeather)
+        tvWindSpeed = findViewById(R.id.tvWindSpeed)
 
         // Initialisation de TimeUpdater
         timeUpdater = TimeUpdater(tvCurrentTime)
         timeUpdater.startUpdatingTime()
 
         // Initialisation de WeatherInfoProvider
-        weatherInfoProvider = WeatherInfoProvider(this, tvWeatherDescription, tvTemperature)
+        weatherInfoProvider = WeatherInfoProvider(this, tvWeatherDescription, tvTemperature,tvWindSpeed)
 
         // Initialisation de LocationProvider
         locationProvider = LocationProvider(this) { cityName ->
@@ -53,6 +63,17 @@ class MainActivity : AppCompatActivity() {
 
         // Vérification des permissions et obtention de la localisation
         locationProvider.checkLocationPermission()
+
+        // Fetch weather data for entered city name on button click
+        btnFetchWeather.setOnClickListener {
+            val cityName = etCity.text.toString()
+            if (cityName.isNotEmpty()) {
+                tvCity.text = cityName
+                weatherInfoProvider.fetchWeatherData(cityName)
+            } else {
+                Toast.makeText(this, "Please enter a city name", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
