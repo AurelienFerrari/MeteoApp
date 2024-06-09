@@ -2,6 +2,7 @@ package com.example.meteoapp
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.Button
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,6 +39,23 @@ class MainActivity : AppCompatActivity() {
     private lateinit var ivWeatherIcon: ImageView
     private lateinit var tvPressure: TextView
     private lateinit var tvHumidity: TextView
+
+    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.home -> {
+                // Naviguer vers le fragment ou l'activité de la page d'accueil
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.settings -> {
+                // Naviguer vers l'activité de paramètres
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+                return@OnNavigationItemSelectedListener true
+            }
+            // Ajoutez d'autres éléments de navigation ici si nécessaire
+            else -> false
+        }
+    }
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,7 +99,12 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please enter a city name", Toast.LENGTH_SHORT).show()
             }
         }
+
+        val navView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
     }
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)

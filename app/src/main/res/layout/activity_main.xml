@@ -190,7 +190,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16sp"
-                    android:hint="Ville à chercher" />
+                    android:hint="Lyon..." />
 
                 <Button
                     android:id="@+id/btnFetchWeather"
