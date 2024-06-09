@@ -43,16 +43,13 @@ class MainActivity : AppCompatActivity() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.home -> {
-                // Naviguer vers le fragment ou l'activité de la page d'accueil
                 return@OnNavigationItemSelectedListener true
             }
             R.id.settings -> {
-                // Naviguer vers l'activité de paramètres
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
                 return@OnNavigationItemSelectedListener true
             }
-            // Ajoutez d'autres éléments de navigation ici si nécessaire
             else -> false
         }
     }
@@ -73,23 +70,18 @@ class MainActivity : AppCompatActivity() {
         tvPressure = findViewById(R.id.tvPressure)
         tvHumidity = findViewById(R.id.tvHumidity)
 
-        // Initialisation de TimeUpdater
         timeUpdater = TimeUpdater(tvCurrentTime)
         timeUpdater.startUpdatingTime()
 
-        // Initialisation de WeatherInfoProvider
         weatherInfoProvider = WeatherInfoProvider(this, tvWeatherDescription, tvTemperature,tvWindSpeed,ivWeatherIcon,tvPressure,tvHumidity)
 
-        // Initialisation de LocationProvider
         locationProvider = LocationProvider(this) { cityName ->
             tvCity.text = cityName
             weatherInfoProvider.fetchWeatherData(cityName)
         }
 
-        // Vérification des permissions et obtention de la localisation
         locationProvider.checkLocationPermission()
 
-        // Fetch weather data for entered city name on button click
         btnFetchWeather.setOnClickListener {
             val cityName = etCity.text.toString()
             if (cityName.isNotEmpty()) {

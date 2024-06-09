@@ -39,7 +39,6 @@
         }
 
         private fun getCityNameFromLocation(location: Location): String {
-            // Remplacez cette méthode par l'implémentation réelle pour obtenir le nom de la ville à partir des coordonnées de localisation.
             return "CityName"
         }
     }

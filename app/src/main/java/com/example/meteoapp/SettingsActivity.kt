@@ -11,16 +11,13 @@ class SettingsActivity : AppCompatActivity() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.home -> {
-                // Naviguer vers le fragment ou l'activité de la page d'accueil
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.settings -> {
-                // Déjà dans l'activité de paramètres, aucune action nécessaire
                 return@OnNavigationItemSelectedListener true
             }
-            // Ajoutez d'autres éléments de navigation ici si nécessaire
             else -> false
         }
     }
