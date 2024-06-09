@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,9 +20,11 @@ class WeatherInfoProvider(
     private val tvWeatherDescription: TextView,
     private val tvTemperature: TextView,
     private val tvWindSpeed: TextView,
+    private val ivWeatherIcon: ImageView,
+    private val tvPressure: TextView,
+    private val tvHumidity: TextView
 ) {
 
-    // Dictionnaire de traductions (toutes les clés en minuscules)
     private val weatherDescriptionTranslations = mapOf(
         "clear sky" to "Ciel dégagé",
         "few clouds" to "Quelques nuages",
@@ -40,7 +43,8 @@ class WeatherInfoProvider(
 
     fun fetchWeatherData(cityName: String) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/")
+
+    .baseUrl("https://api.openweathermap.org/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -60,7 +64,6 @@ class WeatherInfoProvider(
             }
         }
     }
-
     private fun updateWeatherUI(weatherResponse: WeatherResponse) {
         val weatherDescription = weatherResponse.weather[0].description.replaceFirstChar {
             if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
@@ -72,6 +75,9 @@ class WeatherInfoProvider(
         val temperatureInCelsius = temperatureInKelvin - 273.15
         val temperature = String.format("%.0f°C", temperatureInCelsius)
 
+        val pressure = weatherResponse.main.pressure
+        val humidity = weatherResponse.main.humidity
+
         val windSpeedInMetersPerSecond = weatherResponse.wind.speed
         val windSpeedInKilometersPerHour = windSpeedInMetersPerSecond * 3.6
         val windSpeed = String.format("%.1f km/h", windSpeedInKilometersPerHour)
@@ -79,11 +85,19 @@ class WeatherInfoProvider(
         tvWeatherDescription.text = translatedDescription
         tvTemperature.text = temperature
         tvWindSpeed.text = windSpeed
+        tvPressure.text = "$pressure hPa"
+        tvHumidity.text = "$humidity%"
 
+        val icon = weatherResponse.weather[0].icon
+        val iconUrl = "https://openweathermap.org/img/w/$icon.png"
+        Glide.with(context)
+            .load(iconUrl)
+            .into(ivWeatherIcon)
 
-
-        Log.d("WeatherUpdate", "Description: $translatedDescription, Temperature: $temperature, Wind Speed: $windSpeed")
+        Log.d("WeatherUpdate", "Description: $translatedDescription, Temperature: $temperature, Wind Speed: $windSpeed, Pressure: $pressure hPa, Humidity: $humidity%")
     }
+
+
 
 
 }

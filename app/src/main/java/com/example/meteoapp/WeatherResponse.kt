@@ -6,14 +6,18 @@ data class WeatherResponse(
     val wind: Wind
 )
 
-data class Weather(
-    val description: String
+data class Main(
+    val temp: Double,
+    val pressure: Double,
+    val humidity: Int
 )
 
-data class Main(
-    val temp: Double
+data class Weather(
+    val description: String,
+    val icon: String
 )
 
 data class Wind(
     val speed: Double
 )
+

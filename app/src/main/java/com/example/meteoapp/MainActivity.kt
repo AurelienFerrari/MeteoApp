@@ -34,6 +34,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var locationProvider: LocationProvider
     private lateinit var weatherInfoProvider: WeatherInfoProvider
     private lateinit var tvWindSpeed: TextView
+    private lateinit var ivWeatherIcon: ImageView
+    private lateinit var tvPressure: TextView
+    private lateinit var tvHumidity: TextView
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,15 +48,18 @@ class MainActivity : AppCompatActivity() {
         tvWeatherDescription = findViewById(R.id.tvWeatherDescription)
         tvTemperature = findViewById(R.id.tvTemperature)
         etCity = findViewById(R.id.etCity)
+        ivWeatherIcon = findViewById(R.id.weather_icon)
         btnFetchWeather = findViewById(R.id.btnFetchWeather)
         tvWindSpeed = findViewById(R.id.tvWindSpeed)
+        tvPressure = findViewById(R.id.tvPressure)
+        tvHumidity = findViewById(R.id.tvHumidity)
 
         // Initialisation de TimeUpdater
         timeUpdater = TimeUpdater(tvCurrentTime)
         timeUpdater.startUpdatingTime()
 
         // Initialisation de WeatherInfoProvider
-        weatherInfoProvider = WeatherInfoProvider(this, tvWeatherDescription, tvTemperature,tvWindSpeed)
+        weatherInfoProvider = WeatherInfoProvider(this, tvWeatherDescription, tvTemperature,tvWindSpeed,ivWeatherIcon,tvPressure,tvHumidity)
 
         // Initialisation de LocationProvider
         locationProvider = LocationProvider(this) { cityName ->
